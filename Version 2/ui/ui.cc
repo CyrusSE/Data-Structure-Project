@@ -370,19 +370,13 @@ void ui::render() {
             {
                 adr_Dosen D; adr_Mahasiswa M;
 
-                findDosen(Ld, D, 1209008); // Budi Santoso
+                findDosen(Ld, D, 1209007); // Desi Arisandi
                 findMahasiswa(Lm, M, 20231005); // Elara Suri
                 if (D && M) {
                     adr_Relasi R = new elm_Relasi{ M, D, NULL };
                     insertRelasi(Lr, R);
                 }
 
-                findDosen(Ld, D, 1209007); // Desi Arisandi
-                findMahasiswa(Lm, M, 20231004); // Clara Aulia
-                if (D && M) {
-                    adr_Relasi R = new elm_Relasi{ M, D, NULL };
-                    insertRelasi(Lr, R);
-                }
 
                 findDosen(Ld, D, 1209006); // Elisya Hanifah
                 findMahasiswa(Lm, M, 20231003); // Andi Pratama
@@ -392,28 +386,14 @@ void ui::render() {
                 }
 
                 findDosen(Ld, D, 1209005); // Ahmad Setiawan
-                findMahasiswa(Lm, M, 20231002); // Gita Puspita
-                if (D && M) {
-                    adr_Relasi R = new elm_Relasi{ M, D, NULL };
-                    insertRelasi(Lr, R);
-                }
-
-                findDosen(Ld, D, 1209004); // Ratna Sari
                 findMahasiswa(Lm, M, 20231001); // Fajar Nugraha
                 if (D && M) {
                     adr_Relasi R = new elm_Relasi{ M, D, NULL };
                     insertRelasi(Lr, R);
                 }
 
-                findDosen(Ld, D, 1209003); // Indra Saputra
-                findMahasiswa(Lm, M, 20231008); // Rina Anggraini
-                if (D && M) {
-                    adr_Relasi R = new elm_Relasi{ M, D, NULL };
-                    insertRelasi(Lr, R);
-                }
-
                 findDosen(Ld, D, 1209002); // Dian Lestari
-                findMahasiswa(Lm, M, 20232003); // Putri Mawar
+                findMahasiswa(Lm, M, 20231008); // Rina Anggraini
                 if (D && M) {
                     adr_Relasi R = new elm_Relasi{ M, D, NULL };
                     insertRelasi(Lr, R);
