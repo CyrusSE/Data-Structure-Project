@@ -12,7 +12,7 @@ SPADM III adalah sistem pencatatan akademik yang dirancang untuk memudahkan peng
 3. [Data Relasi](#data-relasi)
 4. [Spesifikasi Program](#spesifikasi-program)
 5. [Anggota Kelompok](#anggota-kelompok)
-5. [Compiled Version 1](https://github.com/CyrusSE/Data-Structure-Project/raw/refs/heads/main/Version%201/bin/Debug/Mhs%20Dosen.exe)
+5. [Compiled Version 1](https://github.com/CyrusSE/Data-Structure-Project/raw/refs/heads/main/Version%201/bin/Debug/Dosen%20Mahasiswa.exe)
 6. [Compiled Version 2](https://github.com/CyrusSE/Data-Structure-Project/raw/refs/heads/main/Version%202/x64/Release/STD.exe)
 
 ## Data Dosen
