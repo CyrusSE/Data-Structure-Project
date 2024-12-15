@@ -1,20 +1,22 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
+
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <sstream>
+
 using namespace std;
 
 struct infotype_Mahasiswa {
-    int NIM;
+    long long NIM;
     string nama;
     float IPK;
 };
 
 struct infotype_Dosen {
     string kode;
-    int NIDN;
+    long long NIDN;
     string nama;
 };
 
@@ -65,11 +67,11 @@ void deleteFirstMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P);
 void deleteLastMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P);
 void deleteAfterMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P);
 void deleteRelasi(List_Relasi& L, adr_Relasi& P);
-void findDosen(List_Dosen L, adr_Dosen& P, int NIDN);
-void findMahasiswa(List_Mahasiswa L, adr_Mahasiswa& P, int NIM);
+void findDosen(List_Dosen L, adr_Dosen& P, long long NIDN);
+void findMahasiswa(List_Mahasiswa L, adr_Mahasiswa& P, long long NIM);
 void checkRelasi(List_Relasi L, adr_Mahasiswa P, adr_Dosen Q, adr_Relasi& R);
-bool checkNIM(List_Mahasiswa L, int NIM);
-bool checkNIDN(List_Dosen L, int NIDN);
+bool checkNIM(List_Mahasiswa L, long long NIM);
+bool checkNIDN(List_Dosen L, long long NIDN);
 bool checkDosenHasRelasi(List_Relasi L, adr_Dosen P);
 bool checkMahasiswaHasRelasi(List_Relasi L, adr_Mahasiswa P);
 void deleteRelasiMahasiswa(List_Relasi& L, adr_Mahasiswa& P);
@@ -89,8 +91,6 @@ void hitungDosenTanpaMahasiswa(List_Relasi Lr, List_Dosen Ld);
 void hitungMahasiswaTanpaDosen(List_Relasi Lr, List_Mahasiswa Lm);
 void editDosen(List_Relasi& L, adr_Dosen P, adr_Mahasiswa Q, adr_Mahasiswa R);
 void editMahasiswa(List_Relasi& L, adr_Mahasiswa P, adr_Dosen Q, adr_Dosen R);
-
 void menu(List_Relasi& Lr, List_Dosen& Lp, List_Mahasiswa& Lc);
-
 
 #endif // HEADER_H_INCLUDED

@@ -1,8 +1,6 @@
 #include "header.h"
 
 extern std::string console_buffer;
-
-
 static void AddLog(const std::string& text) {
     console_buffer += "> " + text + "\n";
 }
@@ -32,7 +30,7 @@ void showMahasiswa(List_Mahasiswa L) {
         AddLog("------- Data Mahasiswa -------");
         while (P != NULL) {
             std::stringstream ss;
-            ss << "Nama: " << P->info.nama << ", IPK: " << P->info.IPK << ", NIM: " << P->info.NIM;
+            ss << "Nama: " << P->info.nama << ", IPK: " << std::fixed << std::setprecision(2) << P->info.IPK << ", NIM: " << P->info.NIM;
             AddLog(ss.str());
             P = P->next_Mahasiswa;
         }
@@ -51,7 +49,7 @@ void showMahasiswa_dariDosen(List_Relasi L, adr_Dosen P) {
     while (R != NULL) {
         if (R->next_Dosen == P) {
             std::stringstream ss;
-            ss << "   Nama: " << R->next_Mahasiswa->info.nama << ", IPK: " << R->next_Mahasiswa->info.IPK << ", NIM: " << R->next_Mahasiswa->info.NIM;
+            ss << "   Nama: " << R->next_Mahasiswa->info.nama << ", IPK: " << std::fixed << std::setprecision(2) << R->next_Mahasiswa->info.IPK << ", NIM: " << R->next_Mahasiswa->info.NIM;
             AddLog(ss.str());
             ada = true;
         }
@@ -248,6 +246,7 @@ void insertDosen(List_Dosen& L, adr_Dosen P) {
         L.first = P;
     }
 }
+
 void insertMahasiswa(List_Mahasiswa& L, adr_Mahasiswa P) {
     if (L.first == NULL) {
         L.first = P;
@@ -259,6 +258,7 @@ void insertMahasiswa(List_Mahasiswa& L, adr_Mahasiswa P) {
         L.last = P;
     }
 }
+
 void insertRelasi(List_Relasi& L, adr_Relasi P) {
     if (L.first == NULL) {
         L.first = P;
@@ -271,7 +271,7 @@ void insertRelasi(List_Relasi& L, adr_Relasi P) {
 }
 
 void deleteDosen(List_Dosen& L, adr_Dosen& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     if (P == L.first) {
         deleteFirstDosen(L, P);
     }
@@ -282,8 +282,9 @@ void deleteDosen(List_Dosen& L, adr_Dosen& P) {
         deleteAfterDosen(L, P);
     }
 }
+
 void deleteMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     if (P == L.first) {
         deleteFirstMahasiswa(L, P);
     }
@@ -294,6 +295,7 @@ void deleteMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
         deleteAfterMahasiswa(L, P);
     }
 }
+
 void deleteRelasi(List_Relasi& L, adr_Relasi& P) {
     if (L.first == NULL) {
         return;
@@ -317,7 +319,8 @@ void deleteRelasi(List_Relasi& L, adr_Relasi& P) {
         }
     }
 }
-void findDosen(List_Dosen L, adr_Dosen& P, int NIDN) {
+
+void findDosen(List_Dosen L, adr_Dosen& P, long long NIDN) {
     P = L.first;
     while (P != NULL) {
         if (P->info.NIDN == NIDN) {
@@ -327,7 +330,8 @@ void findDosen(List_Dosen L, adr_Dosen& P, int NIDN) {
     }
     P = NULL;
 }
-void findMahasiswa(List_Mahasiswa L, adr_Mahasiswa& P, int NIM) {
+
+void findMahasiswa(List_Mahasiswa L, adr_Mahasiswa& P, long long NIM) {
     P = L.first;
     while (P != NULL) {
         if (P->info.NIM == NIM) {
@@ -337,6 +341,7 @@ void findMahasiswa(List_Mahasiswa L, adr_Mahasiswa& P, int NIM) {
     }
     P = NULL;
 }
+
 void checkRelasi(List_Relasi L, adr_Mahasiswa PM, adr_Dosen PD, adr_Relasi& R) {
     R = L.first;
     while (R != NULL) {
@@ -348,7 +353,7 @@ void checkRelasi(List_Relasi L, adr_Mahasiswa PM, adr_Dosen PD, adr_Relasi& R) {
     R = NULL;
 }
 
-bool checkNIM(List_Mahasiswa L, int NIM) {
+bool checkNIM(List_Mahasiswa L, long long NIM) {
     adr_Mahasiswa P = L.first;
     while (P != NULL) {
         if (P->info.NIM == NIM) {
@@ -358,7 +363,8 @@ bool checkNIM(List_Mahasiswa L, int NIM) {
     }
     return true;
 }
-bool checkNIDN(List_Dosen L, int NIDN) {
+
+bool checkNIDN(List_Dosen L, long long NIDN) {
     adr_Dosen P = L.first;
     while (P != NULL) {
         if (P->info.NIDN == NIDN) {
@@ -368,6 +374,7 @@ bool checkNIDN(List_Dosen L, int NIDN) {
     }
     return true;
 }
+
 bool checkMahasiswaHasRelasi(List_Relasi L, adr_Mahasiswa P) {
     adr_Relasi R = L.first;
     while (R != NULL) {
@@ -378,6 +385,7 @@ bool checkMahasiswaHasRelasi(List_Relasi L, adr_Mahasiswa P) {
     }
     return false;
 }
+
 bool checkDosenHasRelasi(List_Relasi L, adr_Dosen P) {
     adr_Relasi R = L.first;
     while (R != NULL) {
@@ -388,6 +396,7 @@ bool checkDosenHasRelasi(List_Relasi L, adr_Dosen P) {
     }
     return false;
 }
+
 void deleteRelasiMahasiswa(List_Relasi& L, adr_Mahasiswa& P) {
     adr_Relasi R = L.first;
     while (R != NULL) {
@@ -401,6 +410,7 @@ void deleteRelasiMahasiswa(List_Relasi& L, adr_Mahasiswa& P) {
         }
     }
 }
+
 void deleteRelasiDosen(List_Relasi& L, adr_Dosen& P) {
     adr_Relasi R = L.first;
     while (R != NULL) {
@@ -428,8 +438,9 @@ void deleteFirstMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
         P->next_Mahasiswa = NULL;
     }
 }
+
 void deleteLastMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     P = L.last;
     if (L.first == L.last) {
         L.first = NULL;
@@ -441,8 +452,9 @@ void deleteLastMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
         P->prev_Mahasiswa = NULL;
     }
 }
+
 void deleteAfterMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     P->prev_Mahasiswa->next_Mahasiswa = P->next_Mahasiswa;
     if (P->next_Mahasiswa != NULL) {
         P->next_Mahasiswa->prev_Mahasiswa = P->prev_Mahasiswa;
@@ -455,13 +467,14 @@ void deleteAfterMahasiswa(List_Mahasiswa& L, adr_Mahasiswa& P) {
 }
 
 void deleteFirstDosen(List_Dosen& L, adr_Dosen& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     P = L.first;
     L.first = P->next_Dosen;
     P->next_Dosen = NULL;
 }
+
 void deleteLastDosen(List_Dosen& L, adr_Dosen& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     if (L.first->next_Dosen == NULL) {
         P = L.first;
         L.first = NULL;
@@ -475,8 +488,9 @@ void deleteLastDosen(List_Dosen& L, adr_Dosen& P) {
         Q->next_Dosen = NULL;
     }
 }
+
 void deleteAfterDosen(List_Dosen& L, adr_Dosen& P) {
-    if (L.first == NULL)return;
+    if (L.first == NULL) return;
     adr_Dosen Q = L.first;
     while (Q->next_Dosen != P && Q->next_Dosen != NULL) {
         Q = Q->next_Dosen;
