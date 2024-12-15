@@ -33,7 +33,6 @@ static long long edit_mhs_nim = 0;
 static long long edit_mhs_old_nidn = 0;
 static long long edit_mhs_new_nidn = 0;
 
-// Helper function to format float with one decimal place
 std::string formatFloat(float value, int precision = 1) {
     std::stringstream ss;
     ss << std::fixed << std::setprecision(precision) << value;
@@ -49,17 +48,15 @@ void ui::render() {
     ImGui::SetNextWindowPos(ImVec2(window_pos.x, window_pos.y), ImGuiCond_Once);
     ImGui::SetNextWindowSize(ImVec2(window_size.x, window_size.y));
     ImGui::SetNextWindowBgAlpha(1.0f);
-    if (ImGui::Begin(window_title, nullptr, window_flags)) {
+    if (ImGui::Begin(window_title, &is_window_open, window_flags)) {
         if (ImGui::BeginTabBar("MainTabs")) {
             // Data Dosen Tab
             if (ImGui::BeginTabItem("Data Dosen")) {
                 ImGui::Text("Tambah Dosen:");
                 ImGui::InputText("Nama Dosen", dosen_nama, IM_ARRAYSIZE(dosen_nama));
                 ImGui::InputText("Kode Dosen", dosen_kode, IM_ARRAYSIZE(dosen_kode));
-
                 // 64-bit integers
                 ImGui::InputScalar("NIDN Dosen", ImGuiDataType_S64, &dosen_nidn);
-
                 if (ImGui::Button("Simpan Dosen")) {
                     if (strlen(dosen_nama) > 0 && strlen(dosen_kode) > 0 && dosen_nidn > 0 && checkNIDN(Ld, dosen_nidn)) {
                         adr_Dosen P = new elm_Dosen;
@@ -77,7 +74,6 @@ void ui::render() {
                         AddLog("Data dosen tidak valid atau NIDN sudah ada.");
                     }
                 }
-
                 ImGui::Separator();
                 ImGui::Text("Cari/Hapus Dosen:");
                 ImGui::InputScalar("NIDN untuk cari/hapus", ImGuiDataType_S64, &search_nidn);
@@ -107,28 +103,23 @@ void ui::render() {
                         AddLog("Dosen tidak ditemukan.");
                     }
                 }
-
                 ImGui::Separator();
                 ImGui::Text("Tampilkan Seluruh Dosen:");
                 if (ImGui::Button("Tampilkan Dosen")) {
                     showDosen(Ld);
                 }
-
                 ImGui::SameLine();
                 if (ImGui::Button("Total Dosen Tanpa Mahasiswa")) {
                     hitungDosenTanpaMahasiswa(Lr, Ld);
                 }
-
                 ImGui::EndTabItem();
             }
-
             // Data Mahasiswa Tab
             if (ImGui::BeginTabItem("Data Mahasiswa")) {
                 ImGui::Text("Tambah Mahasiswa:");
                 ImGui::InputText("Nama Mahasiswa", mhs_nama, IM_ARRAYSIZE(mhs_nama));
                 ImGui::InputText("IPK Mahasiswa", mhs_ipk_str, IM_ARRAYSIZE(mhs_ipk_str));
                 ImGui::InputScalar("NIM Mahasiswa", ImGuiDataType_S64, &mhs_nim);
-
                 if (ImGui::Button("Simpan Mahasiswa")) {
                     float ipk = atof(mhs_ipk_str);
                     if (ipk < 0.0f || ipk > 4.0f) {
@@ -153,7 +144,6 @@ void ui::render() {
                         }
                     }
                 }
-
                 ImGui::Separator();
                 ImGui::Text("Cari/Hapus Mahasiswa:");
                 ImGui::InputScalar("NIM untuk cari/hapus", ImGuiDataType_S64, &search_nim);
@@ -186,7 +176,6 @@ void ui::render() {
                         AddLog("Mahasiswa tidak ditemukan.");
                     }
                 }
-
                 ImGui::Separator();
                 ImGui::Text("Tampilkan Seluruh Mahasiswa:");
                 if (ImGui::Button("Tampilkan Mahasiswa")) {
@@ -196,10 +185,8 @@ void ui::render() {
                 if (ImGui::Button("Total Mahasiswa Tanpa Dosen")) {
                     hitungMahasiswaTanpaDosen(Lr, Lm);
                 }
-
                 ImGui::EndTabItem();
             }
-
             // Data Relasi Tab
             if (ImGui::BeginTabItem("Data Relasi")) {
                 ImGui::Text("Tambah Relasi Dosen - Mahasiswa");
@@ -224,7 +211,6 @@ void ui::render() {
                         }
                     }
                 }
-
                 ImGui::Separator();
                 ImGui::Text("Hapus Relasi:");
                 ImGui::InputScalar("NIDN Dosen (Hapus)", ImGuiDataType_S64, &hapus_relasi_nidn);
@@ -256,15 +242,12 @@ void ui::render() {
                     adr_Dosen P, Q; // P = Dosen lama
                     adr_Mahasiswa C, D;
                     adr_Relasi R;
-
                     findDosen(Ld, P, edit_dosen_nidn);
                     findMahasiswa(Lm, C, edit_dosen_old_nim);
                     findMahasiswa(Lm, D, edit_dosen_new_nim);
-
                     if (!P) AddLog("Dosen tidak ditemukan");
                     if (!C) AddLog("Mahasiswa lama tidak ditemukan");
                     if (!D) AddLog("Mahasiswa baru tidak ditemukan");
-
                     if (P && C && D) {
                         checkRelasi(Lr, C, P, R);
                         if (!R) {
@@ -285,15 +268,12 @@ void ui::render() {
                     adr_Mahasiswa C;
                     adr_Dosen P, Q;
                     adr_Relasi R;
-
                     findMahasiswa(Lm, C, edit_mhs_nim);
                     findDosen(Ld, P, edit_mhs_old_nidn);
                     findDosen(Ld, Q, edit_mhs_new_nidn);
-
                     if (!C) AddLog("Mahasiswa tidak ditemukan");
                     if (!P) AddLog("Dosen lama tidak ditemukan");
                     if (!Q) AddLog("Dosen baru tidak ditemukan");
-
                     if (C && P && Q) {
                         checkRelasi(Lr, C, P, R);
                         if (!R) {
@@ -305,7 +285,6 @@ void ui::render() {
                         }
                     }
                 }
-
                 ImGui::Separator();
                 if (ImGui::Button("Tampilkan Semua Relasi (Dari Dosen)")) {
                     showAll_RelasiDosen(Ld, Lr);
@@ -314,23 +293,18 @@ void ui::render() {
                 if (ImGui::Button("Tampilkan Semua Relasi (Dari Mahasiswa)")) {
                     showAll_RelasiMahasiswa(Lm, Lr);
                 }
-
                 ImGui::EndTabItem();
             }
-
             ImGui::EndTabBar();
         }
-
         ImGui::Separator();
         ImGui::Text("Log Output:");
         ImGui::BeginChild("LogArea", ImVec2(0, -50), true);
         ImGui::TextUnformatted(console_buffer.c_str());
         ImGui::EndChild();
-
         if (ImGui::Button("Clear Log")) {
             console_buffer.clear();
         }
-
         ImGui::SameLine();
         if (ImGui::Button("Load Backup")) {
             {
@@ -402,17 +376,19 @@ void ui::render() {
 
             AddLog("Backup loaded successfully.");
         }
-
-        ImGui::Text("Anggota Kelompok :");
-        ImGui::Text("Ihab Hasanain Akmal (103032330054) | Faisal Ihsan Santoso (103032300152) | Neng Intan Nuraeni (103032330031)");
-
+        ImGui::Text("\nAnggota Kelompok :");
+        ImGui::Text("Ihab Hasanain Akmal (103032330054)");
+        ImGui::Text("Faisal Ihsan Santoso (103032300152)");
+        ImGui::Text("Neng Intan Nuraeni (103032330031)");
     }
     ImGui::End();
+    if (!is_window_open) {
+        exit(0);
+    }
 }
 
 void ui::init(LPDIRECT3DDEVICE9 device) {
     dev = device;
-
     ImGui::StyleColorsDark();
     ImGuiStyle& style = ImGui::GetStyle();
     style.WindowRounding = 5.0f;
@@ -421,12 +397,9 @@ void ui::init(LPDIRECT3DDEVICE9 device) {
     style.ScrollbarRounding = 12.0f;
     style.GrabRounding = 4.0f;
     style.WindowTitleAlign = ImVec2(0.5f, 0.5f);
-
-
     Lr.first = NULL; Lr.last = NULL;
     Ld.first = NULL;
     Lm.first = NULL; Lm.last = NULL;
-
     if (window_pos.x == 0) {
         RECT screen_rect{};
         GetWindowRect(GetDesktopWindow(), &screen_rect);

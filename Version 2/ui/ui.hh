@@ -15,4 +15,5 @@ namespace ui {
     inline ImVec2 window_pos{ 0, 0 };
     inline ImVec2 window_size{ 700, 700 };
     inline DWORD window_flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
+    inline bool is_window_open = true;
 }
